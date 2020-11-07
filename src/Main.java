@@ -1,5 +1,7 @@
+import views.MainWindow;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("3D");
+        new MainWindow("3D Viewer");
     }
 }
