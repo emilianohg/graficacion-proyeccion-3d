@@ -7,8 +7,8 @@ import java.util.Vector;
 
 public final class Figure {
 
-    private List<Vertex> vertices;
-    private List<Edge> edges;
+    private final List<Vertex> vertices;
+    private final List<Edge> edges;
 
     public Figure(List<Vertex> vertices, List<Edge> edges) {
         this.vertices   = vertices;
@@ -19,33 +19,36 @@ public final class Figure {
         this(new Vector<>(), new Vector<>());
     }
 
-    public void addVertex(Vertex vertex) {
-        vertices.add(vertex);
+    public int addVertex(double x, double y, double z) {
+        int id = vertices.size();
+        vertices.add(new Vertex(id, x, y, z));
+        return id;
     }
 
-    public void addEdge(Edge edge) {
+    private void addEdge(Edge edge) {
         edges.add(edge);
     }
 
+    public void makeEdge (int idVertexOrigin, int idVertexDestiny) {
+        if (idVertexOrigin > vertices.size() || idVertexDestiny > vertices.size()) {
+            return;
+        }
+
+        addEdge(new Edge(
+            this.vertices.get(idVertexOrigin),
+            this.vertices.get(idVertexDestiny)
+        ));
+    }
+
     public void transform(MatrixTransformation matrix) {
-        edges.forEach(edge -> {
-            double[][] matrixOrigin = MatrixUtils.multiply(
+        vertices.forEach(vertex -> {
+            double[][] matrixResult = MatrixUtils.multiply(
                 matrix.getMatrix(),
                 matrix.getMatrix().length == 3 ?
-                    edge.getVertexOrigin().getMatrix() :
-                    edge.getVertexOrigin().getMatrixExtended()
+                    vertex.getMatrix() :
+                    vertex.getMatrixExtended()
             );
-
-            double[][] matrixDestiny = MatrixUtils.multiply(
-                matrix.getMatrix(),
-                matrix.getMatrix().length == 3 ?
-                    edge.getVertexDestiny().getMatrix() :
-                    edge.getVertexDestiny().getMatrixExtended()
-            );
-
-            edge.setMatrixOrigin(matrixOrigin);
-            edge.setMatrixDestiny(matrixDestiny);
-
+            vertex.setMatrix(matrixResult);
         });
     }
 

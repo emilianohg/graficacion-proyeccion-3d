@@ -27,10 +27,14 @@ public final class Edge {
     }
 
     public void setMatrixOrigin(double[][] matrix) {
-        setVertexOrigin(new Vertex(matrix[0][0], matrix[1][0], matrix[2][0]));
+        vertexOrigin.setX(matrix[0][0]);
+        vertexOrigin.setY(matrix[1][0]);
+        vertexOrigin.setZ(matrix[2][0]);
     }
 
     public void setMatrixDestiny(double[][] matrix) {
-        setVertexDestiny(new Vertex(matrix[0][0], matrix[1][0], matrix[2][0]));
+        vertexDestiny.setX(matrix[0][0]);
+        vertexDestiny.setY(matrix[1][0]);
+        vertexDestiny.setZ(matrix[2][0]);
     }
 }

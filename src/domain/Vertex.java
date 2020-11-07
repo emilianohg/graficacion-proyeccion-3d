@@ -2,14 +2,16 @@ package domain;
 
 public final class Vertex {
 
-    private double x;
-    private double y;
-    private double z;
+    private int     id;
+    private double  x;
+    private double  y;
+    private double  z;
 
-    public Vertex(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public Vertex(int id, double x, double y, double z) {
+        this.id = id;
+        this.x  = x;
+        this.y  = y;
+        this.z  = z;
     }
 
     public double[][] getMatrix() {
@@ -42,6 +44,16 @@ public final class Vertex {
 
     public void setZ(double z) {
         this.z = z;
+    }
+
+    public void setCoordinate(double x, double y, double z) {
+        setX(x);
+        setY(y);
+        setZ(z);
+    }
+
+    public void setMatrix(double[][] matrix) {
+        setCoordinate(matrix[0][0], matrix[1][0], matrix[2][0]);
     }
 
     @Override

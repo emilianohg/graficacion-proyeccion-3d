@@ -27,31 +27,23 @@ public final class MainWindow extends JFrame {
         Figure triangleOriginal = new Figure();
         Figure triangle = new Figure();
 
-        triangleOriginal.addEdge(new Edge(
-                new Vertex(20, 30, 10),
-                new Vertex(100, 30, 40)
-        ));
-        triangleOriginal.addEdge(new Edge(
-                new Vertex(100, 30, 40),
-                new Vertex(60, 400, 30)
-        ));
-        triangleOriginal.addEdge(new Edge(
-                new Vertex(60, 400, 30),
-                new Vertex(20, 30, 10)
-        ));
+        int v1 = triangle.addVertex(20, 30, 10);
+        int v2 = triangle.addVertex(100, 30, 40);
+        int v3 = triangle.addVertex(60, 400, 30);
 
-        triangle.addEdge(new Edge(
-            new Vertex(20, 30, 10),
-            new Vertex(100, 30, 40)
-        ));
-        triangle.addEdge(new Edge(
-            new Vertex(100, 30, 40),
-            new Vertex(60, 400, 30)
-        ));
-        triangle.addEdge(new Edge(
-            new Vertex(60, 400, 30),
-            new Vertex(20, 30, 10)
-        ));
+        triangle.makeEdge(v1, v2);
+        triangle.makeEdge(v2, v3);
+        triangle.makeEdge(v3, v1);
+
+        int vo1 = triangleOriginal.addVertex(20, 30, 10);
+        int vo2 = triangleOriginal.addVertex(100, 30, 40);
+        int vo3 = triangleOriginal.addVertex(60, 400, 30);
+
+        triangleOriginal.makeEdge(v1, v2);
+        triangleOriginal.makeEdge(v2, v3);
+        triangleOriginal.makeEdge(v3, v1);
+
+
 
         canvasOriginal      = new CanvasRender();
         canvasTransformed   = new CanvasRender();
