@@ -25,6 +25,10 @@ public final class Figure {
         return id;
     }
 
+    public void addVertex(Vertex vertex) {
+        vertices.add(vertex);
+    }
+
     private void addEdge(Edge edge) {
         edges.add(edge);
     }

@@ -1,0 +1,5 @@
+id,name,image_url,file_vertex_url,file_edges_url
+0,Triangulo,images/cubo.png,triangle/vertex.csv,triangle/edges.csv
+1,Cuadrado,images/cubo.png,square/vertex.csv,square/edges.csv
+2,Hexagono,images/cubo.png,hexagon/vertex.csv,hexagon/edges.csv
+3,Cubo,images/cubo.png,cube/vertex.csv,cube/edges.csv

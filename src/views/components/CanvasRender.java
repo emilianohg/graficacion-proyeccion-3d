@@ -19,12 +19,22 @@ public final class CanvasRender extends Canvas {
     public CanvasRender() {
         figures = new Vector<>();
         isLoaded = false;
-        new Timer(100, actionEvent -> repaint());
+        new Timer(100, actionEvent -> {
+            int x = -getWidth();
+            int y = -getHeight();
+            int w = getWidth()*2;
+            int h = getHeight()*2;
+            repaint();
+        }).start();
         setVisible(true);
     }
 
     public void addFigure(Figure figure) {
         figures.add(figure);
+    }
+
+    public void removeAllFigures() {
+        figures.clear();
     }
 
     public void draw(Graphics2D g) {
@@ -33,8 +43,10 @@ public final class CanvasRender extends Canvas {
             setNormalCoordinateSystem(g);
         }
         setBackground(g);
+        setGuideLines(g);
 
         figures.forEach(figure -> figure.getEdges().forEach(edge -> {
+            g.setColor(Color.BLACK);
             g.setStroke(new BasicStroke(4));
             g.drawLine(
                 (int) edge.getVertexOrigin().getX(),
@@ -44,6 +56,18 @@ public final class CanvasRender extends Canvas {
             );
         }));
 
+    }
+
+    public void setTransformation(Transformation transformation) {
+        scaleX(transformation.getScaleX());
+        scaleY(transformation.getScaleY());
+        scaleZ(transformation.getRotateZ());
+        translateX(transformation.getTranslateX());
+        translateY(transformation.getTranslateY());
+        translateZ(transformation.getTranslateZ());
+        rotateX(transformation.getRotateX());
+        rotateY(transformation.getRotateY());
+        rotateZ(transformation.getRotateZ());
     }
 
     public void scaleX(double delta) {
@@ -86,21 +110,36 @@ public final class CanvasRender extends Canvas {
         figure.transform(matrix);
     }
 
-    private void setBackground(Graphics2D g) {
-        g.setPaint(new GradientPaint(
-            getWidth()/2, 0, new Color(100,100,100),
-            getWidth()/2, getHeight()+200, new Color(200, 200, 200)
-        ));
-        g.fillRect(0, 0, getHeight(), getHeight());
+    private void setGuideLines(Graphics2D g) {
+        g.setColor(Color.DARK_GRAY);
+        g.setStroke(new BasicStroke(1));
+        g.drawLine(-getWidth(), 0, getWidth(), 0);
+        g.drawLine(0, -getHeight(), 0, getHeight());
 
-        g.setColor(Color.RED);
-        g.fillRect(10, 10, 10, 10);
-        g.setColor(Color.BLUE);
-        g.fillRect(10, 20, 10, 10);
+        int heightMark = 3;
+
+        for(int i = -getWidth(); i < getWidth(); i+=10) {
+            g.drawLine(i, -heightMark, i, heightMark);
+        }
+
+        for(int i = -getHeight(); i < getHeight(); i+=10) {
+            g.drawLine(-heightMark, i, heightMark, i);
+        }
+    }
+
+    private void setBackground(Graphics2D g) {
+//        g.setPaint(new GradientPaint(
+//            getWidth()/2, 0, new Color(100,100,100),
+//            getWidth()/2, getHeight()+200, new Color(200, 200, 200)
+//        ));
+
+        g.setColor(Color.WHITE);
+        g.fillRect(-getWidth()/2, -getHeight()/2, getWidth(), getHeight());
+
     }
 
     private void setNormalCoordinateSystem(Graphics2D g) {
-        g.translate(0, getHeight());
+        g.translate(getWidth()/2, getHeight()/2);
         g.scale(1, -1);
     }
 
@@ -127,7 +166,11 @@ public final class CanvasRender extends Canvas {
 
         super.paint(g2d);
         draw(g2d);
-        g.drawImage(offscreen, 0, 0, getWidth(), getHeight(), this);
+
+        int x = 0;
+        int y = 0;
+
+        g.drawImage(offscreen, x, y, getWidth(), getHeight(), this);
     }
 
 }
