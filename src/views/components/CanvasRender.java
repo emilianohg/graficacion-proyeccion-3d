@@ -46,7 +46,7 @@ public final class CanvasRender extends Canvas {
         setGuideLines(g);
 
         figures.forEach(figure -> figure.getEdges().forEach(edge -> {
-            g.setColor(Color.BLACK);
+            g.setColor(edge.getColor());
             g.setStroke(new BasicStroke(4));
             g.drawLine(
                 (int) edge.getVertexOrigin().getX(),

@@ -15,7 +15,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
-import java.util.List;
 
 public final class MainWindow extends JFrame {
 
@@ -71,13 +70,10 @@ public final class MainWindow extends JFrame {
         panelControls.setSize(190,100);
 
         controlScale = new ControlXYZ("Escala");
-        panelControls.add(controlScale);
 
         controlRotation = new ControlXYZ("Rotacion");
-        panelControls.add(controlRotation);
 
         controlTranslation = new ControlXYZ("Traslacion");
-        panelControls.add(controlTranslation);
 
         JPanel panelButtons = new JPanel();
         panelButtons.setLayout(new GridLayout(0,1));
@@ -90,8 +86,6 @@ public final class MainWindow extends JFrame {
         btnReset.addActionListener(this::resetTransform);
         panelButtons.add(btnReset);
 
-        panelControls.add(panelButtons);
-
         tableVertices = new TableVertices(figureOriginal, figureTransformed);
 
         add(tableVertices, BorderLayout.WEST);
@@ -102,6 +96,10 @@ public final class MainWindow extends JFrame {
         figuresStorage.getAll().forEach(selectFigure::addItem);
 
         panelControls.add(selectFigure);
+        panelControls.add(controlScale);
+        panelControls.add(controlRotation);
+        panelControls.add(controlTranslation);
+        panelControls.add(panelButtons);
 
         add(panelControls, BorderLayout.NORTH);
 
@@ -182,12 +180,6 @@ public final class MainWindow extends JFrame {
         panel.add(canvas);
 
         return panel;
-    }
-
-    public Figure getFigure(int id) {
-        List<FigureSaved> figureSavedList = figuresStorage.getAll();
-        Figure triangleOriginal = figureSavedList.get(id).getFigure();
-        return figureSavedList.get(id).getFigure();
     }
 
 }

@@ -1,13 +1,21 @@
 package domain;
 
+import java.awt.*;
+
 public final class Edge {
 
     private Vertex vertexOrigin;
     private Vertex vertexDestiny;
+    private Color  color;
 
-    public Edge(Vertex vertexOrigin, Vertex vertexDestiny) {
+    public Edge(Vertex vertexOrigin, Vertex vertexDestiny, Color color) {
         this.vertexOrigin   = vertexOrigin;
         this.vertexDestiny  = vertexDestiny;
+        this.color          = color;
+    }
+
+    public Edge(Vertex vertexOrigin, Vertex vertexDestiny) {
+        this(vertexOrigin, vertexDestiny, Color.BLACK);
     }
 
     public Vertex getVertexOrigin() {
@@ -24,6 +32,14 @@ public final class Edge {
 
     public void setVertexDestiny(Vertex vertexDestiny) {
         this.vertexDestiny = vertexDestiny;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void setMatrixOrigin(double[][] matrix) {

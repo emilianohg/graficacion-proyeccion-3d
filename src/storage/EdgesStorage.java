@@ -4,6 +4,7 @@ package storage;
 import domain.Edge;
 import domain.Vertex;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -35,9 +36,9 @@ public class EdgesStorage extends StorageHandler<VertexEdge> {
 
             int id_vertex_origin  = Integer.parseInt(data[0]);
             int id_vertex_destiny = Integer.parseInt(data[1]);
+            Color color           = Color.decode("0x"+data[2]);
 
-            records.add(new VertexEdge(id_vertex_origin, id_vertex_destiny));
-
+            records.add(new VertexEdge(id_vertex_origin, id_vertex_destiny, color));
         }
 
         reader.close();

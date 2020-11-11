@@ -1,7 +1,7 @@
 id_vertex_origin,id_vertex_destiny
-0,1
-1,2
-2,3
-3,4
-4,5
-5,0
+0,1,00FFFF
+1,2,00FFFF
+2,3,00FFFF
+3,4,00FFFF
+4,5,00FFFF
+5,0,00FFFF

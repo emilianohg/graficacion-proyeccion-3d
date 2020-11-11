@@ -2,6 +2,7 @@ package domain;
 
 import utils.MatrixUtils;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
@@ -35,18 +36,23 @@ public final class Figure {
         edges.add(edge);
     }
 
-    public void makeEdge (int idVertexOrigin, int idVertexDestiny) {
+    public void makeEdge (int idVertexOrigin, int idVertexDestiny, Color color) {
         if (idVertexOrigin > vertices.size() || idVertexDestiny > vertices.size()) {
             return;
         }
 
         addEdge(new Edge(
             this.vertices.get(idVertexOrigin),
-            this.vertices.get(idVertexDestiny)
+            this.vertices.get(idVertexDestiny),
+            color
         ));
     }
 
-    @Override
+    public void makeEdge (int idVertexOrigin, int idVertexDestiny) {
+        makeEdge(idVertexOrigin, idVertexDestiny, Color.BLACK);
+    }
+
+        @Override
     public Figure clone() {
         Figure figure = new Figure();
 
@@ -59,7 +65,8 @@ public final class Figure {
         getEdges().forEach(edge -> {
             figure.makeEdge(
                 edge.getVertexOrigin().getId(),
-                edge.getVertexDestiny().getId()
+                edge.getVertexDestiny().getId(),
+                edge.getColor()
             );
         });
 

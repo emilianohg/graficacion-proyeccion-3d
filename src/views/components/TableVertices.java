@@ -67,8 +67,6 @@ public class TableVertices extends JPanel {
         }
 
         vertices.forEach(vertexRow -> {
-//            System.out.println(vertexRow.getVertexOriginal());
-//            System.out.println(vertexRow.getVertexTransformed());
             Object[] row = {
                 vertexRow.getVertexOriginal().getId(),
                 MathUtils.round(vertexRow.getVertexOriginal().getX(), 2),

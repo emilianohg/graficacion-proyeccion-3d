@@ -80,7 +80,11 @@ public class FigureSaved {
 
         Figure figure = new Figure();
         vertices.forEach(figure::addVertex);
-        vertexEdges.forEach(vertexEdge -> figure.makeEdge(vertexEdge.getIdOrigin(), vertexEdge.getIdDestiny()));
+        vertexEdges.forEach(vertexEdge -> figure.makeEdge(
+            vertexEdge.getIdOrigin(),
+            vertexEdge.getIdDestiny(),
+            vertexEdge.getColor()
+        ));
 
         return figure;
     }

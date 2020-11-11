@@ -1,12 +1,20 @@
 package storage;
 
+import java.awt.*;
+
 public class VertexEdge {
     private int idOrigin;
     private int idDestiny;
+    private Color color;
+
+    public VertexEdge(int idOrigin, int idDestiny, Color color) {
+        this.idOrigin   = idOrigin;
+        this.idDestiny  = idDestiny;
+        this.color      = color;
+    }
 
     public VertexEdge(int idOrigin, int idDestiny) {
-        this.idOrigin = idOrigin;
-        this.idDestiny = idDestiny;
+        this(idOrigin, idDestiny, Color.BLACK);
     }
 
     public int getIdOrigin() {
@@ -23,5 +31,13 @@ public class VertexEdge {
 
     public void setIdDestiny(int idDestiny) {
         this.idDestiny = idDestiny;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
