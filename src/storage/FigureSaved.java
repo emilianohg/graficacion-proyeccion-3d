@@ -87,12 +87,6 @@ public class FigureSaved {
 
     @Override
     public String toString() {
-        return "FigureSaved{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", image_url='" + image_url + '\'' +
-                ", file_vertex_url='" + file_vertex_url + '\'' +
-                ", file_edges_url='" + file_edges_url + '\'' +
-                '}';
+        return name;
     }
 }

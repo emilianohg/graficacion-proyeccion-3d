@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -29,9 +30,9 @@ public final class MainWindow extends JFrame {
 
     TableVertices tableVertices;
 
-    Figure figureOriginal, figureTransformed;
+    private JComboBox<FigureSaved> selectFigure;
 
-    private final int ID_FIGURE_DEMO = 3;
+    Figure figureOriginal, figureTransformed;
 
     public MainWindow(String title) {
         super(title);
@@ -55,9 +56,6 @@ public final class MainWindow extends JFrame {
 
         canvasOriginal.setSize(400, 600);
         canvasTransformed.setSize(400, 600);
-
-        figureOriginal = getFigure(ID_FIGURE_DEMO);
-        figureTransformed = getFigure(ID_FIGURE_DEMO);
 
         canvasOriginal.addFigure(figureOriginal);
         canvasTransformed.addFigure(figureTransformed);
@@ -94,16 +92,40 @@ public final class MainWindow extends JFrame {
 
         panelControls.add(panelButtons);
 
-        add(panelControls, BorderLayout.NORTH);
-
         tableVertices = new TableVertices(figureOriginal, figureTransformed);
 
         add(tableVertices, BorderLayout.WEST);
+
+        selectFigure        = new JComboBox<>();
+        selectFigure.addItemListener(this::changeFigure);
+
+        figuresStorage.getAll().forEach(selectFigure::addItem);
+
+        panelControls.add(selectFigure);
+
+        add(panelControls, BorderLayout.NORTH);
 
         resetTransform(null);
 
         pack();
         setVisible(true);
+    }
+
+    private void changeFigure(ItemEvent itemEvent) {
+        if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+            FigureSaved figureSaved = (FigureSaved) itemEvent.getItem();
+
+            canvasOriginal.removeAllFigures();
+            canvasTransformed.removeAllFigures();
+
+            figureOriginal = figureSaved.getFigure();
+            figureTransformed = figureOriginal.clone();
+
+            canvasOriginal.addFigure(figureOriginal);
+            canvasTransformed.addFigure(figureTransformed);
+
+            resetTransform(null);
+        }
     }
 
     private void resetTransform(ActionEvent actionEvent) {
@@ -135,7 +157,7 @@ public final class MainWindow extends JFrame {
                 controlTranslation.getInputZ()
             );
 
-            figureTransformed = getFigure(ID_FIGURE_DEMO);
+            figureTransformed = figureOriginal.clone();
             canvasTransformed.removeAllFigures();
             canvasTransformed.addFigure(figureTransformed);
 

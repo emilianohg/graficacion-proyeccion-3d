@@ -46,6 +46,26 @@ public final class Figure {
         ));
     }
 
+    @Override
+    public Figure clone() {
+        Figure figure = new Figure();
+
+        getVertices().forEach(vertex -> figure.addVertex(
+            vertex.getX(),
+            vertex.getY(),
+            vertex.getZ()
+        ));
+
+        getEdges().forEach(edge -> {
+            figure.makeEdge(
+                edge.getVertexOrigin().getId(),
+                edge.getVertexDestiny().getId()
+            );
+        });
+
+        return figure;
+    }
+
     public void transform(MatrixTransformation matrix) {
         vertices.forEach(vertex -> {
             double[][] matrixResult = MatrixUtils.multiply(
