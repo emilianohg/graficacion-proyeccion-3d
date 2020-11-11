@@ -10,9 +10,10 @@ public final class RotationMatrixZ extends MatrixTransformation {
 
     public double[][] getMatrix() {
         return new double[][] {
-                {Math.cos(angle),   -Math.sin(angle),   0 },
-                {Math.sin(angle),   Math.cos(angle),    0 },
-                {0,                 0,                  1 }
+            {Math.cos(angle),   -Math.sin(angle),   0,  0 },
+            {Math.sin(angle),   Math.cos(angle),    0,  0 },
+            {0,                 0,                  1,  0 },
+            {0,                 0,                  0,  1 }
         };
     }
 

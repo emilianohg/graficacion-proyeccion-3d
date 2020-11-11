@@ -8,7 +8,6 @@ public class Main {
 
         try {
             FiguresStorage figuresStorage = new FiguresStorage("figures.csv");
-            System.out.println(figuresStorage.getAll());
         } catch (IOException e) {
             e.printStackTrace();
         }

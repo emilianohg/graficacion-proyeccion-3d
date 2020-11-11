@@ -32,8 +32,6 @@ public class FigureSaved {
         this.file_vertex_url= file_vertex_url;
         this.file_edges_url = file_edges_url;
 
-        System.out.println(image_url);
-
         try {
             this.image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResource(image_url)));
         } catch (IOException e) {

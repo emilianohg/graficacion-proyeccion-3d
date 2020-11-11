@@ -2,6 +2,8 @@ package domain;
 
 import utils.MatrixUtils;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -48,9 +50,7 @@ public final class Figure {
         vertices.forEach(vertex -> {
             double[][] matrixResult = MatrixUtils.multiply(
                 matrix.getMatrix(),
-                matrix.getMatrix().length == 3 ?
-                    vertex.getMatrix() :
-                    vertex.getMatrixExtended()
+                vertex.getMatrixExtended()
             );
             vertex.setMatrix(matrixResult);
         });

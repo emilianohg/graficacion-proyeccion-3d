@@ -108,4 +108,19 @@ public class Transformation {
     public void setTranslateZ(double translateZ) {
         this.translateZ=translateZ;
     }
+
+    @Override
+    public String toString() {
+        return "Transformation{" +
+                "scaleX=" + scaleX +
+                ", scaleY=" + scaleY +
+                ", scaleZ=" + scaleZ +
+                ", rotateX=" + rotateX +
+                ", rotateY=" + rotateY +
+                ", rotateZ=" + rotateZ +
+                ", translateX=" + translateX +
+                ", translateY=" + translateY +
+                ", translateZ=" + translateZ +
+                '}';
+    }
 }

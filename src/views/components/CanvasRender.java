@@ -61,7 +61,7 @@ public final class CanvasRender extends Canvas {
     public void setTransformation(Transformation transformation) {
         scaleX(transformation.getScaleX());
         scaleY(transformation.getScaleY());
-        scaleZ(transformation.getRotateZ());
+        scaleZ(transformation.getScaleZ());
         translateX(transformation.getTranslateX());
         translateY(transformation.getTranslateY());
         translateZ(transformation.getTranslateZ());

@@ -22,6 +22,10 @@ public final class Vertex {
         return new double[][] {{x}, {y}, {z}, {1}};
     }
 
+    public int getId() {
+        return id;
+    }
+
     public double getX() {
         return x;
     }
