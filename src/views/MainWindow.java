@@ -53,6 +53,9 @@ public final class MainWindow extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+        figureOriginal = new Figure();
+        figureTransformed = new Figure();
+
         canvasOriginal      = new CanvasRender();
         canvasTransformed   = new CanvasRender();
 
@@ -103,12 +106,16 @@ public final class MainWindow extends JFrame {
 
         add(panelTables, BorderLayout.WEST);
 
+        JPanel panelSelectFigure = new JPanel();
+        panelSelectFigure.setLayout(new GridLayout(2, 1));
         selectFigure        = new JComboBox<>();
         selectFigure.addItemListener(this::changeFigure);
-
+        selectFigure.addItem(new FigureSaved(-1, "Vacio", "", "", ""));
         figuresStorage.getAll().forEach(selectFigure::addItem);
+        panelSelectFigure.add(new JLabel("Figura inicial"));
+        panelSelectFigure.add(selectFigure);
 
-        panelControls.add(selectFigure);
+        panelControls.add(panelSelectFigure);
         panelControls.add(controlScale);
         panelControls.add(controlRotation);
         panelControls.add(controlTranslation);
@@ -129,8 +136,14 @@ public final class MainWindow extends JFrame {
             canvasOriginal.removeAllFigures();
             canvasTransformed.removeAllFigures();
 
-            figureOriginal = figureSaved.getFigure();
-            figureTransformed = figureOriginal.clone();
+            if (figureSaved.getId() == -1) {
+                figureOriginal = new Figure();
+                figureTransformed = new Figure();
+            } else {
+                figureOriginal = figureSaved.getFigure();
+                figureTransformed = figureOriginal.clone();
+            }
+
 
             canvasOriginal.addFigure(figureOriginal);
             canvasTransformed.addFigure(figureTransformed);
