@@ -6,6 +6,7 @@ import storage.FigureSaved;
 import storage.FiguresStorage;
 import views.components.CanvasRender;
 import views.components.ControlXYZ;
+import views.components.TableEdges;
 import views.components.TableVertices;
 
 import javax.swing.*;
@@ -28,6 +29,7 @@ public final class MainWindow extends JFrame {
     private ControlXYZ controlTranslation;
 
     TableVertices tableVertices;
+    TableEdges tableEdges;
 
     private JComboBox<FigureSaved> selectFigure;
 
@@ -47,6 +49,7 @@ public final class MainWindow extends JFrame {
 
     public void initComponent() {
         setSize(1300, 800);
+        setMaximumSize(new Dimension(1300, 800));
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -86,9 +89,19 @@ public final class MainWindow extends JFrame {
         btnReset.addActionListener(this::resetTransform);
         panelButtons.add(btnReset);
 
-        tableVertices = new TableVertices(figureOriginal, figureTransformed);
+        JPanel panelTables = new JPanel();
+        panelTables.setLayout(new GridLayout(2,1));
+        panelTables.setSize(600, 300);
+        panelTables.setPreferredSize(new Dimension(600, 300));
+        panelTables.setMaximumSize(new Dimension(600, 300));
 
-        add(tableVertices, BorderLayout.WEST);
+        tableVertices   = new TableVertices(figureOriginal, figureTransformed);
+        tableEdges      = new TableEdges(figureOriginal, figureTransformed);
+
+        panelTables.add(tableVertices);
+        panelTables.add(tableEdges);
+
+        add(panelTables, BorderLayout.WEST);
 
         selectFigure        = new JComboBox<>();
         selectFigure.addItemListener(this::changeFigure);
@@ -162,6 +175,7 @@ public final class MainWindow extends JFrame {
             canvasTransformed.setTransformation(transformation);
 
             tableVertices.updateTable(figureOriginal, figureTransformed);
+            tableEdges.updateTable(figureOriginal, figureTransformed);
         }
 
     public JPanel getPanelRender(String title, CanvasRender canvas) {

@@ -7,6 +7,7 @@ import utils.MathUtils;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Vector;
 
@@ -15,10 +16,18 @@ public class TableVertices extends JPanel {
     JTable table;
     DefaultTableModel tableModel;
 
+    JTextField inputX, inputY, inputZ;
+    JButton btnAdd;
+
     Figure figureOrigin, figureTransformed;
     List<VertexRow> vertices;
 
     public TableVertices(Figure figureOrigin, Figure figureTransformed) {
+
+        setPreferredSize(new Dimension(400, 400));
+        setMaximumSize(new Dimension(400, 400));
+
+        setLayout(new BorderLayout());
 
         this.figureOrigin = figureOrigin;
         this.figureTransformed = figureTransformed;
@@ -35,7 +44,50 @@ public class TableVertices extends JPanel {
         if (figureOrigin != null && figureTransformed != null) {
             updateTable(figureOrigin, figureTransformed);
         }
+
+        JPanel panelX = new JPanel();
+        panelX.setLayout(new GridLayout(2,1));
+        panelX.add(new JLabel("Vértice X:"));
+        inputX = new JTextField();
+        panelX.add(inputX);
+
+        JPanel panelY = new JPanel();
+        panelY.setLayout(new GridLayout(2,1));
+        panelY.add(new JLabel("Vértice Y:"));
+        inputY = new JTextField();
+        panelY.add(inputY);
+
+        JPanel panelZ = new JPanel();
+        panelZ.setLayout(new GridLayout(2,1));
+        panelZ.add(new JLabel("Vértice Z:"));
+        inputZ = new JTextField();
+        panelZ.add(inputZ);
+
+        btnAdd = new JButton("Agregar vertice");
+        btnAdd.addActionListener(this::addVertex);
+
+        JPanel control = new JPanel();
+        control.setLayout(new GridLayout(1, 4));
+
+        control.add(panelX);
+        control.add(panelY);
+        control.add(panelZ);
+        control.add(btnAdd);
+
+        add(control, BorderLayout.NORTH);
+
         setVisible(true);
+    }
+
+    private void addVertex(ActionEvent actionEvent) {
+        double x = Double.parseDouble(inputX.getText().isEmpty() ? "0" : inputX.getText());
+        double y = Double.parseDouble(inputY.getText().isEmpty() ? "0" : inputY.getText());
+        double z = Double.parseDouble(inputZ.getText().isEmpty() ? "0" : inputZ.getText());
+
+        figureOrigin.addVertex(x, y, z);
+        figureTransformed.addVertex(x, y, z);
+
+        updateTable(figureOrigin, figureTransformed);
     }
 
     public TableVertices() {

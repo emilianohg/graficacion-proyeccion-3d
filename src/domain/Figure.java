@@ -28,6 +28,12 @@ public final class Figure {
         return id;
     }
 
+    public int addVertex(double x, double y, double z, MatrixTransformation matrix) {
+        int id = vertices.size();
+        vertices.add(transform(matrix, new Vertex(id, x, y, z)));
+        return id;
+    }
+
     public void addVertex(Vertex vertex) {
         vertices.add(vertex);
     }
@@ -75,12 +81,17 @@ public final class Figure {
 
     public void transform(MatrixTransformation matrix) {
         vertices.forEach(vertex -> {
-            double[][] matrixResult = MatrixUtils.multiply(
+            transform(matrix, vertex);
+        });
+    }
+
+    public Vertex transform(MatrixTransformation matrix, Vertex vertex) {
+        double[][] matrixResult = MatrixUtils.multiply(
                 matrix.getMatrix(),
                 vertex.getMatrixExtended()
-            );
-            vertex.setMatrix(matrixResult);
-        });
+        );
+        vertex.setMatrix(matrixResult);
+        return vertex;
     }
 
     public List<Vertex> getVertices() {
