@@ -1,9 +1,5 @@
 package storage;
 
-
-import domain.Edge;
-import domain.Vertex;
-
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;

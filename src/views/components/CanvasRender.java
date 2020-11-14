@@ -20,10 +20,6 @@ public final class CanvasRender extends Canvas {
         figures = new Vector<>();
         isLoaded = false;
         new Timer(100, actionEvent -> {
-            int x = -getWidth();
-            int y = -getHeight();
-            int w = getWidth()*2;
-            int h = getHeight()*2;
             repaint();
         }).start();
         setVisible(true);
